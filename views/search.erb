@@ -1,0 +1,31 @@
+<h2 class="content-subhead">Search</h2>
+
+
+<form action="/search" method="get">
+  <input name="query" value="<%= params[:query] %>">
+  <button type="submit">Search</button>
+</form>
+
+<ul class="pure-menu-list">
+  <% if !@results.empty? %>    
+    <h2 class="content-subhead">Results for <%=params[:query]%></h2>      
+        <% @results.each do |k,v| %>
+          <h2 class="content-subhead"><%=@contents[k]%></h2>
+            <%if v.size == 1 %>
+              <a href="/chapters/<%=k%>"><%=v[0]%></a>
+            <%else%>
+              <% v.each do |result_hash| %>
+                <a href="/chapters/<%=k%>"><%=result_hash[0]%></a>
+              <% end %>
+            <% end %>
+        <% end %>
+  <% end %>
+  <% if @results.empty? && !params[:query].nil? %>
+    <h2 class="content-subhead">Sorry, no results found for <%=params[:query]%></h2>
+  <% end %>
+</ul>
+         
+
+
+
+        
